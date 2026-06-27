@@ -233,28 +233,29 @@
         .gallery-row {
             display: flex;
             width: 100%;
-            overflow: hidden; 
-            padding: 10px 0;
+            /* REMOVED overflow: hidden to prevent edge clipping */
+            overflow: visible; 
+            padding: 25px 0; /* Extra breathing space for vertical pops */
         }
 
-        .gallery-row.left-row { justify-content: flex-start; padding-left: 20px; }
-        .gallery-row.right-row { justify-content: flex-end; padding-right: 20px; }
+        .gallery-row.left-row { justify-content: flex-start; padding-left: 30px; }
+        .gallery-row.right-row { justify-content: flex-end; padding-right: 30px; }
 
-        /* The moving layout wrapper handling the dynamic animations seamlessly */
+        /* Structural moving layer handling animations smoothly */
         .photo-card {
             position: relative;
             width: 165px; 
-            max-width: 46%;
+            max-width: 44%;
             opacity: 0;
             
-            /* Clean hardware accelerated shadow filter that strictly follows container geometries */
-            filter: drop-shadow(0px 8px 16px rgba(0,0,0,0.55));
+            /* Advanced drop-shadow filter handles arbitrary transparent layer objects natively */
+            filter: drop-shadow(0px 10px 14px rgba(0,0,0,0.6));
             
-            /* Unified transition engine ensures shadow and card move at the exact same millisecond */
+            /* Unified engine ensures the shadow scales and rotates alongside the asset without delay */
             transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.5s ease, filter 0.4s ease;
         }
 
-        /* Inner card structural housing frame */
+        /* Inner card layout frame wrapper */
         .card-inner {
             background: var(--polaroid-bg) !important;
             padding: 12px 12px 42px 12px; 
@@ -267,11 +268,11 @@
 
         /* Secure Starting Positions close to viewport borders */
         .left-row .photo-card {
-            transform: translateX(-40px) rotate(-20deg);
+            transform: translateX(-45px) rotate(-20deg);
         }
 
         .right-row .photo-card {
-            transform: translateX(40px) rotate(20deg);
+            transform: translateX(45px) rotate(20deg);
         }
 
         /* Smooth Target Lock with dynamic angles */
@@ -281,7 +282,7 @@
             transform: translateX(0) rotate(var(--rotation));
         }
 
-        /* Pure Emoji Captions anchored safely inside structural layer */
+        /* Pure Emoji Captions */
         .card-inner::after {
             position: absolute;
             bottom: 8px;
@@ -302,10 +303,10 @@
         .photo-card[data-id="9"] .card-inner::after { content: '🌟'; }
         .photo-card[data-id="10"] .card-inner::after { content: '🎂'; }
 
-        /* Straightens up and naturally drops shadow dynamically away during active states */
+        /* Straightens up smoothly and deepens drop-shadow cleanly upon touch/hover */
         .photo-card:hover, .photo-card:active {
-            transform: scale(1.06) translateY(-8px) rotate(0deg) !important;
-            filter: drop-shadow(0px 18px 24px rgba(0,0,0,0.45));
+            transform: scale(1.08) translateY(-14px) rotate(0deg) !important;
+            filter: drop-shadow(0px 22px 24px rgba(0,0,0,0.5));
             z-index: 10;
         }
 
