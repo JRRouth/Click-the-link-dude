@@ -24,7 +24,7 @@
             padding: 0;
         }
 
-        /* Lock scroll on load using a class managed by JS */
+        /* Lock scroll on load */
         body.scroll-locked {
             overflow: hidden;
             height: 100vh;
@@ -150,7 +150,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            opacity: 0; /* Hidden until candles are blown out */
+            opacity: 0; 
             transition: opacity 0.8s ease;
         }
 
@@ -173,7 +173,7 @@
             padding: 0 10px;
         }
 
-        /* Continuous SVG Wavy Line down the middle background */
+        /* Continuous SVG Wavy Line */
         .timeline-svg-container {
             position: absolute;
             top: 0;
@@ -207,7 +207,7 @@
             z-index: 2;
             display: flex;
             flex-direction: column;
-            gap: 140px; 
+            gap: 120px; 
             padding: 40px 0 100px 0;
         }
 
@@ -221,53 +221,50 @@
 
         .photo-card {
             background: var(--polaroid-bg) !important;
-            padding: 12px 12px 38px 12px;
+            padding: 12px 12px 42px 12px; 
             box-shadow: 0 8px 22px rgba(163, 119, 125, 0.15);
             border-radius: 2px;
             border: 1px solid rgba(255,255,255,0.7);
             position: relative;
-            width: 200px; 
-            max-width: 45%;
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s ease;
+            width: 165px; /* Perfect sizing optimized for mobile screen split proportions */
+            max-width: 46%;
+            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease;
         }
 
+        /* Mobile Safe Viewport Starting Positions */
         .left-row .photo-card {
             opacity: 0;
-            transform: translateX(-120%) rotate(-35deg);
+            transform: translateX(-50px) rotate(-25deg);
         }
 
         .right-row .photo-card {
             opacity: 0;
-            transform: translateX(120%) rotate(35deg);
+            transform: translateX(50px) rotate(25deg);
         }
 
-        .left-row .photo-card.reveal {
-            opacity: 1;
-            transform: translateX(0) rotate(var(--rotation));
-        }
-
+        /* Smooth Target Reveal Lock */
+        .left-row .photo-card.reveal,
         .right-row .photo-card.reveal {
             opacity: 1;
             transform: translateX(0) rotate(var(--rotation));
         }
 
+        /* Pure Emoji Frame Captioning */
         .photo-card::after {
             position: absolute;
-            bottom: 10px;
+            bottom: 8px;
             left: 0;
             width: 100%;
-            font-family: 'Dancing Script', cursive;
-            font-size: 1.1rem;
-            color: var(--dark-pink);
-            opacity: 0.85;
+            font-size: 1.4rem;
+            text-align: center;
         }
 
-        .photo-card[data-id="1"]::after { content: '✨ Always Lovely ✨'; }
-        .photo-card[data-id="2"]::after { content: '🌸 Pure Sunshine 🌸'; }
-        .photo-card[data-id="3"]::after { content: '✨ Radiant Smile ✨'; }
-        .photo-card[data-id="4"]::after { content: '🎈 Happy Moments 🎈'; }
-        .photo-card[data-id="5"]::after { content: '💫 Bright Star 💫'; }
-        .photo-card[data-id="6"]::after { content: '🌷 Simply Best 🌷'; }
+        .photo-card[data-id="1"]::after { content: '✨'; }
+        .photo-card[data-id="2"]::after { content: '🌸'; }
+        .photo-card[data-id="3"]::after { content: '✨'; }
+        .photo-card[data-id="4"]::after { content: '🎈'; }
+        .photo-card[data-id="5"]::after { content: '💫'; }
+        .photo-card[data-id="6"]::after { content: '🌷'; }
 
         .photo-card:hover {
             transform: scale(1.08) rotate(0deg) !important;
@@ -277,7 +274,7 @@
 
         .photo-card img {
             width: 100%;
-            height: 190px;
+            height: 165px;
             object-fit: cover;
             border-radius: 1px;
         }
@@ -360,7 +357,9 @@
         }
     </style>
 </head>
-<body class="scroll-locked"> <header>
+<body class="scroll-locked">
+
+    <header>
         <h1 id="headline">Happy Birthday, Aarohi! ✨</h1>
         <p class="subtitle">Wishing an elegant & lovely day to someone incredibly special</p>
     </header>
@@ -476,14 +475,9 @@
 
                 if (blownCount === totalCandles) {
                     document.getElementById('cake-status').innerText = "All wishes locked in! Your memory lane is open ✨";
-                    
-                    // 1. Unlocks scroll by removing the CSS lock class from body
                     document.body.classList.remove('scroll-locked');
-                    
-                    // 2. Fades in the "Scroll down" visual indicator smoothly
                     document.getElementById('scroll-prompt').classList.add('reveal-prompt');
                     
-                    // 3. Huge celebration explosion blast
                     setTimeout(() => {
                         confetti({ particleCount: 180, spread: 95, origin: { y: 0.55 }, colors: ['#ffb7b2', '#ff8b94', '#e8c547'] });
                     }, 200);
@@ -495,8 +489,8 @@
             const cards = document.querySelectorAll('.photo-card');
             const observerOptions = {
                 root: null,
-                threshold: 0.2,
-                rootMargin: "0px 0px -40px 0px"
+                threshold: 0.05, /* Lowered to trigger immediately when touching mobile borders */
+                rootMargin: "0px 0px -20px 0px"
             };
 
             const observer = new IntersectionObserver((entries) => {
