@@ -233,9 +233,8 @@
         .gallery-row {
             display: flex;
             width: 100%;
-            /* REMOVED overflow: hidden to prevent edge clipping */
             overflow: visible; 
-            padding: 25px 0; /* Extra breathing space for vertical pops */
+            padding: 25px 0; 
         }
 
         .gallery-row.left-row { justify-content: flex-start; padding-left: 30px; }
@@ -247,11 +246,7 @@
             width: 165px; 
             max-width: 44%;
             opacity: 0;
-            
-            /* Advanced drop-shadow filter handles arbitrary transparent layer objects natively */
             filter: drop-shadow(0px 10px 14px rgba(0,0,0,0.6));
-            
-            /* Unified engine ensures the shadow scales and rotates alongside the asset without delay */
             transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.5s ease, filter 0.4s ease;
         }
 
@@ -302,6 +297,13 @@
         .photo-card[data-id="8"] .card-inner::after { content: '🎀'; }
         .photo-card[data-id="9"] .card-inner::after { content: '🌟'; }
         .photo-card[data-id="10"] .card-inner::after { content: '🎂'; }
+        .photo-card[data-id="11"] .card-inner::after { content: '🍯'; }
+        .photo-card[data-id="12"] .card-inner::after { content: '🦋'; }
+        .photo-card[data-id="13"] .card-inner::after { content: '💎'; }
+        .photo-card[data-id="14"] .card-inner::after { content: '🍭'; }
+        .photo-card[data-id="15"] .card-inner::after { content: '🎨'; }
+        .photo-card[data-id="16"] .card-inner::after { content: '🍀'; }
+        .photo-card[data-id="17"] .card-inner::after { content: '🧁'; }
 
         /* Straightens up smoothly and deepens drop-shadow cleanly upon touch/hover */
         .photo-card:hover, .photo-card:active {
@@ -436,9 +438,9 @@
     </div>
 
     <div class="timeline-wrapper">
-        <svg class="timeline-svg-container" viewBox="0 0 40 2600" preserveAspectRatio="none">
-            <path class="timeline-line" d="M20,0 Q10,100 20,200 T20,400 T20,600 T20,800 T20,1000 T20,1200 T20,1400 T20,1600 T20,1800 T20,2000 T20,2200 T20,2400 T20,2560" />
-            <path class="timeline-arrow-head" d="M10,2545 L20,2560 L30,2545" />
+        <svg class="timeline-svg-container" viewBox="0 0 40 4300" preserveAspectRatio="none">
+            <path class="timeline-line" d="M20,0 Q10,100 20,200 T20,400 T20,600 T20,800 T20,1000 T20,1200 T20,1400 T20,1600 T20,1800 T20,2000 T20,2200 T20,2400 T20,2600 T20,2800 T20,3000 T20,3200 T20,3400 T20,3600 T20,3800 T20,4000 T20,4200 T20,4260" />
+            <path class="timeline-arrow-head" d="M10,4245 L20,4260 L30,4245" />
         </svg>
 
         <div class="gallery-container">
@@ -509,6 +511,55 @@
                 <div class="photo-card" style="--rotation: 6deg;" data-id="10">
                     <div class="card-inner">
                         <img src="photo10.jpg" alt="Aarohi 10">
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-row left-row">
+                <div class="photo-card" style="--rotation: -6deg;" data-id="11">
+                    <div class="card-inner">
+                        <img src="photo11.jpg" alt="Aarohi 11">
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-row right-row">
+                <div class="photo-card" style="--rotation: 5deg;" data-id="12">
+                    <div class="card-inner">
+                        <img src="photo12.jpg" alt="Aarohi 12">
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-row left-row">
+                <div class="photo-card" style="--rotation: -7deg;" data-id="13">
+                    <div class="card-inner">
+                        <img src="photo13.jpg" alt="Aarohi 13">
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-row right-row">
+                <div class="photo-card" style="--rotation: 8deg;" data-id="14">
+                    <div class="card-inner">
+                        <img src="photo14.jpg" alt="Aarohi 14">
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-row left-row">
+                <div class="photo-card" style="--rotation: -4deg;" data-id="15">
+                    <div class="card-inner">
+                        <img src="photo15.jpg" alt="Aarohi 15">
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-row right-row">
+                <div class="photo-card" style="--rotation: 6deg;" data-id="16">
+                    <div class="card-inner">
+                        <img src="photo16.jpg" alt="Aarohi 16">
+                    </div>
+                </div>
+            </div>
+            <div class="gallery-row left-row">
+                <div class="photo-card" style="--rotation: -5deg;" data-id="17">
+                    <div class="card-inner">
+                        <img src="photo17.jpg" alt="Aarohi 17">
                     </div>
                 </div>
             </div>
