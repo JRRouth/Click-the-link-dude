@@ -191,7 +191,6 @@
             padding: 0 10px;
         }
 
-        /* Reverted back to the original layout structure */
         .timeline-svg-container {
             position: absolute;
             top: 0;
@@ -244,15 +243,17 @@
         .photo-card {
             background: var(--polaroid-bg) !important;
             padding: 12px 12px 42px 12px; 
-            /* Drop shadow filter rotates completely with the box angle */
-            filter: drop-shadow(8px 10px 12px rgba(0, 0, 0, 0.65));
-            border-radius: 4px;
+            border-radius: 8px; 
             position: relative;
             width: 165px; 
             max-width: 46%;
             border: 1px solid rgba(255,255,255,0.05);
             opacity: 0;
-            transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.5s ease, filter 0.3s ease;
+            
+            /* Enhanced 3D Soft Shadow Separation */
+            filter: drop-shadow(var(--shadow-x) 12px 14px rgba(0, 0, 0, 0.55));
+            
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.5s ease, filter 0.4s ease;
         }
 
         /* Secure Starting Positions close to viewport borders */
@@ -292,9 +293,10 @@
         .photo-card[data-id="9"]::after { content: '🌟'; }
         .photo-card[data-id="10"]::after { content: '🎂'; }
 
-        .photo-card:hover {
-            transform: scale(1.06) rotate(0deg) !important;
-            filter: drop-shadow(12px 14px 16px rgba(0, 0, 0, 0.75));
+        /* Straightens up, rises vertically, and pushes shadow deeper down when active */
+        .photo-card:hover, .photo-card:active {
+            transform: scale(1.06) translateY(-8px) rotate(0deg) !important;
+            filter: drop-shadow(0px 24px 20px rgba(0, 0, 0, 0.65));
             z-index: 10;
         }
 
@@ -302,7 +304,7 @@
             width: 100%;
             height: 165px;
             object-fit: cover;
-            border-radius: 2px;
+            border-radius: 4px;
         }
 
         /* --- Birthday Letter Section --- */
@@ -431,52 +433,52 @@
 
         <div class="gallery-container">
             <div class="gallery-row left-row">
-                <div class="photo-card" style="--rotation: -7deg;" data-id="1">
+                <div class="photo-card" style="--rotation: -7deg; --shadow-x: -8px;" data-id="1">
                     <img src="photo1.jpg" alt="Aarohi 1">
                 </div>
             </div>
             <div class="gallery-row right-row">
-                <div class="photo-card" style="--rotation: 6deg;" data-id="2">
+                <div class="photo-card" style="--rotation: 6deg; --shadow-x: 8px;" data-id="2">
                     <img src="photo2.jpg" alt="Aarohi 2">
                 </div>
             </div>
             <div class="gallery-row left-row">
-                <div class="photo-card" style="--rotation: -5deg;" data-id="3">
+                <div class="photo-card" style="--rotation: -5deg; --shadow-x: -6px;" data-id="3">
                     <img src="photo3.jpg" alt="Aarohi 3">
                 </div>
             </div>
             <div class="gallery-row right-row">
-                <div class="photo-card" style="--rotation: 8deg;" data-id="4">
+                <div class="photo-card" style="--rotation: 8deg; --shadow-x: 10px;" data-id="4">
                     <img src="photo4.jpg" alt="Aarohi 4">
                 </div>
             </div>
             <div class="gallery-row left-row">
-                <div class="photo-card" style="--rotation: -6deg;" data-id="5">
+                <div class="photo-card" style="--rotation: -6deg; --shadow-x: -8px;" data-id="5">
                     <img src="photo5.jpg" alt="Aarohi 5">
                 </div>
             </div>
             <div class="gallery-row right-row">
-                <div class="photo-card" style="--rotation: 5deg;" data-id="6">
+                <div class="photo-card" style="--rotation: 5deg; --shadow-x: 6px;" data-id="6">
                     <img src="photo6.jpg" alt="Aarohi 6">
                 </div>
             </div>
             <div class="gallery-row left-row">
-                <div class="photo-card" style="--rotation: -4deg;" data-id="7">
+                <div class="photo-card" style="--rotation: -4deg; --shadow-x: -5px;" data-id="7">
                     <img src="photo7.jpg" alt="Aarohi 7">
                 </div>
             </div>
             <div class="gallery-row right-row">
-                <div class="photo-card" style="--rotation: 7deg;" data-id="8">
+                <div class="photo-card" style="--rotation: 7deg; --shadow-x: 9px;" data-id="8">
                     <img src="photo8.jpg" alt="Aarohi 8">
                 </div>
             </div>
             <div class="gallery-row left-row">
-                <div class="photo-card" style="--rotation: -5deg;" data-id="9">
+                <div class="photo-card" style="--rotation: -5deg; --shadow-x: -6px;" data-id="9">
                     <img src="photo9.jpg" alt="Aarohi 9">
                 </div>
             </div>
             <div class="gallery-row right-row">
-                <div class="photo-card" style="--rotation: 6deg;" data-id="10">
+                <div class="photo-card" style="--rotation: 6deg; --shadow-x: 8px;" data-id="10">
                     <img src="photo10.jpg" alt="Aarohi 10">
                 </div>
             </div>
