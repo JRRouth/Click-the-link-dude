@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Aarohi! ✨</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        :root {
+            --bg-color: #fff9f9;
+            --primary-pink: #ffb7b2;
+            --dark-pink: #ff8b94;
+            --text-color: #4a4a4a;
+            --accent-gold: #e8c547;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+            text-align: center;
+        }
+
+        /* --- Header Section --- */
+        header {
+            padding: 80px 20px 40px;
+        }
+
+        h1 {
+            font-family: 'Dancing Script', cursive;
+            font-size: 3.5rem;
+            color: var(--dark-pink);
+            margin-bottom: 10px;
+            animation: fadeInDown 1.5s ease;
+        }
+
+        .subtitle {
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* --- Interactive Cake Section --- */
+        .cake-section {
+            margin: 40px auto;
+            position: relative;
+            width: 200px;
+            height: 250px;
+            cursor: pointer;
+        }
+
+        .cake {
+            position: absolute;
+            bottom: 0;
+            width: 200px;
+            height: 120px;
+            background: #f7d6d0;
+            border-radius: 20px 20px 10px 10px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        .cake::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 200px;
+            height: 30px;
+            background: #ffb7b2;
+            border-radius: 20px 20px 0 0;
+        }
+
+        .frosting {
+            position: absolute;
+            top: 25px;
+            width: 200px;
+            height: 20px;
+            background: #fff;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .candle {
+            position: absolute;
+            bottom: 120px;
+            left: 92px;
+            width: 16px;
+            height: 50px;
+            background: linear-gradient(to right, #e8c547, #fff);
+            border-radius: 4px;
+        }
+
+        .flame {
+            position: absolute;
+            top: -20px;
+            left: 2px;
+            width: 12px;
+            height: 20px;
+            background: orange;
+            border-radius: 50% 50% 20% 20%;
+            box-shadow: 0 0 10px rgba(255,165,0,0.8);
+            animation: flicker 0.6s infinite alternate;
+            transition: opacity 0.3s ease;
+        }
+
+        .cake-instruction {
+            font-size: 0.85rem;
+            margin-top: 15px;
+            font-style: italic;
+            opacity: 0.7;
+        }
+
+        /* --- Memory Lane / Gallery Section --- */
+        .gallery-container {
+            max-width: 1000px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.5rem;
+            color: var(--dark-pink);
+            margin-bottom: 30px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .photo-card {
+            background: white;
+            padding: 15px;
+            padding-bottom: 40px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border-radius: 4px;
+            transform: rotate(var(--rotation));
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .photo-card:hover {
+            transform: scale(1.05) rotate(0deg);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 2px;
+        }
+
+        /* --- Birthday Letter Section --- */
+        .letter-section {
+            margin: 80px 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .envelope {
+            background: #fcf1f1;
+            border: 2px solid var(--primary-pink);
+            border-radius: 8px;
+            padding: 40px 30px;
+            max-width: 550px;
+            width: 100%;
+            box-shadow: 0 10px 30px rgba(255, 183, 178, 0.2);
+            cursor: pointer;
+            transition: transform 0.4s ease;
+        }
+
+        .envelope:hover {
+            transform: translateY(-5px);
+        }
+
+        .envelope-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2rem;
+            color: var(--dark-pink);
+            margin-bottom: 10px;
+        }
+
+        .letter-content {
+            display: none;
+            max-height: 0;
+            overflow: hidden;
+            text-align: left;
+            line-height: 1.8;
+            font-size: 0.95rem;
+            margin-top: 20px;
+            border-top: 1px dashed var(--primary-pink);
+            padding-top: 20px;
+        }
+
+        .letter-content p {
+            margin-bottom: 15px;
+        }
+
+        .open .letter-content {
+            display: block;
+            max-height: 1000px;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        /* --- Animations --- */
+        @keyframes flicker {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1) cubic-bezier(0.1, 0, 0.1, 1); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        footer {
+            padding: 40px;
+            font-size: 0.8rem;
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1 id="headline">Happy Birthday, Aarohi! ✨</h1>
+        <p class="subtitle">Wishing a truly wonderful day to someone incredibly special</p>
+    </header>
+
+    <div class="cake-section" onclick="blowCandle()">
+        <div class="candle">
+            <div class="flame" id="cake-flame"></div>
+        </div>
+        <div class="cake">
+            <div class="frosting"></div>
+        </div>
+    </div>
+    <p class="cake-instruction" id="cake-status">Click the candle to blow it out and make a wish!</p>
+
+    <hr style="width: 50px; margin: 60px auto; border: none; border-top: 2px solid var(--primary-pink);">
+
+    <div class="gallery-container">
+        <h2 class="section-title">Beautiful Memories</h2>
+        <div class="gallery-grid">
+            <div class="photo-card" style="--rotation: -3deg;">
+                <img src="photo1.jpg" alt="Memory 1">
+            </div>
+            <div class="photo-card" style="--rotation: 2deg;">
+                <img src="photo2.jpg" alt="Memory 2">
+            </div>
+            <div class="photo-card" style="--rotation: -1deg;">
+                <img src="photo3.jpg" alt="Memory 3">
+            </div>
+            <div class="photo-card" style="--rotation: 4deg;">
+                <img src="photo4.jpg" alt="Memory 4">
+            </div>
+            <div class="photo-card" style="--rotation: -4deg;">
+                <img src="photo5.jpg" alt="Memory 5">
+            </div>
+            <div class="photo-card" style="--rotation: 1deg;">
+                <img src="photo6.jpg" alt="Memory 6">
+            </div>
+        </div>
+    </div>
+
+    <div class="letter-section">
+        <div class="envelope" id="envelope" onclick="openLetter()">
+            <div class="envelope-title" id="envelope-prompt">Click to open your letter 💌</div>
+            <div class="letter-content">
+                <p>Dear Aarohi,</p>
+                <p>Happy Birthday! Today is all about celebrating you and the wonderful person you are. You bring so much light, warmth, and joy into the lives of everyone around you.</p>
+                <p>I hope this day brings you as much happiness as you give to others, and that the coming year is filled with amazing adventures, bright smiles, and beautiful moments.</p>
+                <p>Have an incredible day. You deserve the absolute best!</p>
+                <p style="font-family: 'Dancing Script', cursive; font-size: 1.5rem; color: var(--dark-pink); text-align: right;">With warmth, <br> Jeet</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>Made with ✨ for your special day</p>
+    </footer>
+
+    <script>
+        // 1. Initial Confetti Blast when page loads
+        window.addEventListener('DOMContentLoaded', () => {
+            durationBlast(2);
+        });
+
+        // Function for a sustained confetti effect
+        function durationBlast(seconds) {
+            var duration = seconds * 1000;
+            var end = Date.now() + duration;
+
+            (function frame() {
+                confetti({
+                    particleCount: 3,
+                    angle: 60,
+                    spread: 55,
+                    origin: { x: 0 },
+                    colors: ['#ffb7b2', '#ff8b94', '#fff']
+                });
+                confetti({
+                    particleCount: 3,
+                    angle: 120,
+                    spread: 55,
+                    origin: { x: 1 },
+                    colors: ['#ffb7b2', '#ff8b94', '#fff']
+                });
+
+                if (Date.now() < end) {
+                    requestAnimationFrame(frame);
+                }
+            }());
+        }
+
+        // 2. Interactive Cake Candle Function
+        function blowCandle() {
+            const flame = document.getElementById('cake-flame');
+            const status = document.getElementById('cake-status');
+            
+            if(flame.style.opacity !== '0') {
+                flame.style.opacity = '0'; // Extinguish flame
+                status.innerText = "Your wish is locked in! ✨";
+                
+                // Huge confetti burst celebrating the blown candle
+                confetti({
+                    particleCount: 150,
+                    spread: 80,
+                    origin: { y: 0.6 },
+                    colors: ['#ffb7b2', '#ff8b94', '#e8c547']
+                });
+            }
+        }
+
+        // 3. Open Letter Function
+        function openLetter() {
+            const envelope = document.getElementById('envelope');
+            const prompt = document.getElementById('envelope-prompt');
+            
+            if(!envelope.classList.contains('open')) {
+                envelope.classList.add('open');
+                prompt.innerText = "A Little Note For You ✨";
+                
+                // Soft, elegant burst of confetti on opening the note
+                confetti({
+                    particleCount: 50,
+                    angle: 90,
+                    spread: 60,
+                    origin: { y: 0.8 }
+                });
+            }
+        }
+    </script>
+</body>
+</html>
