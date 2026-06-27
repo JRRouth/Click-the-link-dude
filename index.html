@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Aarohi! ✨</title>
-    <!-- Google Fonts for Beautiful Aesthetic Typography -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- Canvas Confetti Library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <style>
@@ -17,12 +15,19 @@
             --deep-rose: #f37983;
             --text-color: #5c4d50;
             --polaroid-bg: #ffffff;
+            --cake-base: #f7d6d0;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+
+        /* Lock scroll on load using a class managed by JS */
+        body.scroll-locked {
+            overflow: hidden;
+            height: 100vh;
         }
 
         body {
@@ -44,7 +49,6 @@
             font-size: 3.8rem;
             color: var(--dark-pink);
             margin-bottom: 12px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.02);
             animation: fadeInDown 1.5s ease;
         }
 
@@ -56,37 +60,35 @@
             opacity: 0.85;
         }
 
-        /* --- Interactive Cake Section (4 Candles) --- */
+        /* --- Fixed Interactive Cake Section --- */
         .cake-section {
             margin: 40px auto 20px;
             position: relative;
             width: 220px;
             height: 230px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .candles-row {
             position: absolute;
             bottom: 110px;
-            left: 0;
             width: 100%;
             display: flex;
             justify-content: center;
             gap: 15px;
-            z-index: 2;
+            z-index: 3;
         }
 
         .candle {
             position: relative;
             width: 12px;
             height: 45px;
-            background: linear-gradient(to right, var(--primary-pink), #fff);
+            background: linear-gradient(to right, var(--primary-pink), #ffffff) !important;
             border-radius: 3px;
             cursor: pointer;
             transition: transform 0.2s;
-        }
-        
-        .candle:hover {
-            transform: scale(1.08);
         }
 
         .flame {
@@ -95,7 +97,7 @@
             left: 1px;
             width: 10px;
             height: 16px;
-            background: orange;
+            background: orange !important;
             border-radius: 50% 50% 20% 20%;
             box-shadow: 0 0 8px rgba(255,165,0,0.8);
             animation: flicker 0.6s infinite alternate;
@@ -105,10 +107,9 @@
         .cake {
             position: absolute;
             bottom: 0;
-            left: 10px;
             width: 200px;
             height: 110px;
-            background: #f7d6d0;
+            background: var(--cake-base) !important;
             border-radius: 16px 16px 10px 10px;
             box-shadow: 0 10px 25px rgba(243,121,131,0.15);
             z-index: 1;
@@ -118,19 +119,22 @@
             content: '';
             position: absolute;
             top: 0;
-            width: 200px;
+            left: 0;
+            width: 100%;
             height: 25px;
-            background: var(--primary-pink);
+            background: var(--primary-pink) !important;
             border-radius: 16px 16px 0 0;
         }
 
         .frosting {
             position: absolute;
             top: 20px;
-            width: 200px;
+            left: 0;
+            width: 100%;
             height: 18px;
-            background: #fff;
+            background: #ffffff !important;
             border-radius: 0 0 8px 8px;
+            z-index: 2;
         }
 
         .cake-instruction {
@@ -138,112 +142,157 @@
             margin-top: 10px;
             font-style: italic;
             opacity: 0.8;
-            font-weight: 400;
         }
 
-        /* --- Scroll Prompt & Elegant Wavy Arrow --- */
+        /* --- Scroll Prompt Section --- */
         .scroll-prompt-section {
-            margin: 60px auto 30px;
+            margin: 60px auto 0px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            opacity: 0; /* Hidden until candles are blown out */
+            transition: opacity 0.8s ease;
+        }
+
+        .scroll-prompt-section.reveal-prompt {
+            opacity: 1;
         }
 
         .scroll-text {
             font-family: 'Dancing Script', cursive;
-            font-size: 1.8rem;
+            font-size: 2.5rem;
             color: var(--deep-rose);
-            margin-bottom: 10px;
+            margin-bottom: 5px;
         }
 
-        .wavy-arrow {
+        /* --- Continuous Interactive Track Container --- */
+        .timeline-wrapper {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 0 10px;
+        }
+
+        /* Continuous SVG Wavy Line down the middle background */
+        .timeline-svg-container {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
             width: 40px;
-            height: 50px;
+            height: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .timeline-line {
             fill: none;
             stroke: var(--dark-pink);
-            stroke-width: 2.5;
+            stroke-width: 3;
             stroke-linecap: round;
-            animation: floatArrow 2s infinite ease-in-out;
+            stroke-dasharray: 4 4;
         }
 
-        /* --- Memory Lane / Polaroid Gallery Section --- */
+        .timeline-arrow-head {
+            fill: none;
+            stroke: var(--dark-pink);
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* --- Side-Pop Polaroid Gallery Content --- */
         .gallery-container {
-            max-width: 950px;
-            margin: 20px auto 60px;
-            padding: 0 24px;
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            gap: 140px; 
+            padding: 40px 0 100px 0;
         }
 
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 40px;
-            perspective: 1000px;
+        .gallery-row {
+            display: flex;
+            width: 100%;
         }
 
-        /* Beautiful Aesthetic Polaroid Frame */
+        .gallery-row.left-row { justify-content: flex-start; padding-left: 15px; }
+        .gallery-row.right-row { justify-content: flex-end; padding-right: 15px; }
+
         .photo-card {
-            background: var(--polaroid-bg);
-            padding: 16px 16px 45px 16px;
-            box-shadow: 0 8px 20px rgba(163, 119, 125, 0.15);
+            background: var(--polaroid-bg) !important;
+            padding: 12px 12px 38px 12px;
+            box-shadow: 0 8px 22px rgba(163, 119, 125, 0.15);
             border-radius: 2px;
             border: 1px solid rgba(255,255,255,0.7);
             position: relative;
-            
-            /* Animation Initial State */
-            opacity: 0;
-            transform: translateY(60px) rotate(0deg) scale(0.9);
-            transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.8s ease;
+            width: 200px; 
+            max-width: 45%;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 1s ease;
         }
 
-        /* Polaroid bottom aesthetic inscription */
+        .left-row .photo-card {
+            opacity: 0;
+            transform: translateX(-120%) rotate(-35deg);
+        }
+
+        .right-row .photo-card {
+            opacity: 0;
+            transform: translateX(120%) rotate(35deg);
+        }
+
+        .left-row .photo-card.reveal {
+            opacity: 1;
+            transform: translateX(0) rotate(var(--rotation));
+        }
+
+        .right-row .photo-card.reveal {
+            opacity: 1;
+            transform: translateX(0) rotate(var(--rotation));
+        }
+
         .photo-card::after {
-            content: '✨ Always Beautiful ✨';
             position: absolute;
-            bottom: 14px;
+            bottom: 10px;
             left: 0;
             width: 100%;
             font-family: 'Dancing Script', cursive;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: var(--dark-pink);
-            opacity: 0.8;
+            opacity: 0.85;
         }
 
-        /* Custom Inscription Varieties */
-        .photo-card:nth-child(2)::after { content: '🌸 Pure Sunshine 🌸'; }
-        .photo-card:nth-child(3)::after { content: '✨ Captivating Smile ✨'; }
-        .photo-card:nth-child(4)::after { content: '🎈 Making Memories 🎈'; }
-        .photo-card:nth-child(5)::after { content: '💫 Absolutely Radiant 💫'; }
-        .photo-card:nth-child(6)::after { content: '🌷 Simply Wonderful 🌷'; }
-
-        /* Animation Trigger State via JS */
-        .photo-card.reveal {
-            opacity: 1;
-            transform: translateY(0) rotate(var(--rotation)) scale(1);
-        }
+        .photo-card[data-id="1"]::after { content: '✨ Always Lovely ✨'; }
+        .photo-card[data-id="2"]::after { content: '🌸 Pure Sunshine 🌸'; }
+        .photo-card[data-id="3"]::after { content: '✨ Radiant Smile ✨'; }
+        .photo-card[data-id="4"]::after { content: '🎈 Happy Moments 🎈'; }
+        .photo-card[data-id="5"]::after { content: '💫 Bright Star 💫'; }
+        .photo-card[data-id="6"]::after { content: '🌷 Simply Best 🌷'; }
 
         .photo-card:hover {
-            transform: scale(1.06) rotate(0deg) !important;
-            box-shadow: 0 15px 30px rgba(163, 119, 125, 0.25);
+            transform: scale(1.08) rotate(0deg) !important;
+            box-shadow: 0 12px 28px rgba(163, 119, 125, 0.25);
             z-index: 10;
         }
 
         .photo-card img {
             width: 100%;
-            height: 260px;
+            height: 190px;
             object-fit: cover;
             border-radius: 1px;
-            border: 1px solid rgba(0,0,0,0.03);
         }
 
         /* --- Birthday Letter Section --- */
         .letter-section {
-            margin: 90px 20px 60px;
+            margin: 40px 20px 60px;
             display: flex;
             justify-content: center;
+            position: relative;
+            z-index: 3;
         }
 
         .envelope {
-            background: #fffcfc;
+            background: #fffcfc !important;
             border: 2px solid var(--primary-pink);
             border-radius: 12px;
             padding: 45px 35px;
@@ -276,7 +325,6 @@
             margin-top: 25px;
             border-top: 1px dashed var(--primary-pink);
             padding-top: 25px;
-            color: var(--text-color);
         }
 
         .letter-content p {
@@ -305,28 +353,18 @@
             to { opacity: 1; }
         }
 
-        @keyframes floatArrow {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(8px); }
-        }
-
         footer {
             padding: 50px 20px;
             font-size: 0.8rem;
             opacity: 0.6;
-            letter-spacing: 1px;
         }
     </style>
 </head>
-<body>
-
-    <!-- Header Section -->
-    <header>
+<body class="scroll-locked"> <header>
         <h1 id="headline">Happy Birthday, Aarohi! ✨</h1>
         <p class="subtitle">Wishing an elegant & lovely day to someone incredibly special</p>
     </header>
 
-    <!-- Interactive Cake Section with 4 Candles -->
     <div class="cake-section">
         <div class="candles-row">
             <div class="candle" onclick="blowCandle(this, 1)">
@@ -346,48 +384,52 @@
             <div class="frosting"></div>
         </div>
     </div>
-    <p class="cake-instruction" id="cake-status">Tap each candle to blow them out and make your wishes! 🎂</p>
+    <p class="cake-instruction" id="cake-status">Blow out all 4 candles to reveal your special lane! 🎂</p>
 
-    <!-- Scroll Down Indicator Area -->
-    <div class="scroll-prompt-section">
-        <p class="scroll-text">Scroll down to explore our moments</p>
-        <!-- Custom Aesthetic Wavy Vector Arrow -->
-        <svg class="wavy-arrow" viewBox="0 0 24 24">
-            <path d="M12 3v12M12 15l-4-4m4 4l4-4M12 5c0 2-2 3-2 5s2 3 2 5" stroke-dasharray="none" />
-        </svg>
+    <div class="scroll-prompt-section" id="scroll-prompt">
+        <p class="scroll-text">Scroll down</p>
     </div>
 
-    <!-- Photo Gallery Section -->
-    <div class="gallery-container">
-        <div class="gallery-grid">
-            <!-- Photo 1 (Rotates Left) -->
-            <div class="photo-card" style="--rotation: -5deg;">
-                <img src="photo1.jpg" alt="Aarohi Memory 1">
+    <div class="timeline-wrapper">
+        <svg class="timeline-svg-container" viewBox="0 0 40 1600" preserveAspectRatio="none">
+            <path class="timeline-line" d="M20,0 Q10,100 20,200 T20,400 T20,600 T20,800 T20,1000 T20,1200 T20,1400 T20,1560" />
+            <path class="timeline-arrow-head" d="M10,1545 L20,1560 L30,1545" />
+        </svg>
+
+        <div class="gallery-container">
+            <div class="gallery-row left-row">
+                <div class="photo-card" style="--rotation: -7deg;" data-id="1">
+                    <img src="photo1.jpg" alt="Aarohi 1">
+                </div>
             </div>
-            <!-- Photo 2 (Rotates Right) -->
-            <div class="photo-card" style="--rotation: 4deg;">
-                <img src="photo2.jpg" alt="Aarohi Memory 2">
+            <div class="gallery-row right-row">
+                <div class="photo-card" style="--rotation: 6deg;" data-id="2">
+                    <img src="photo2.jpg" alt="Aarohi 2">
+                </div>
             </div>
-            <!-- Photo 3 (Rotates Left) -->
-            <div class="photo-card" style="--rotation: -3deg;">
-                <img src="photo3.jpg" alt="Aarohi Memory 3">
+            <div class="gallery-row left-row">
+                <div class="photo-card" style="--rotation: -5deg;" data-id="3">
+                    <img src="photo3.jpg" alt="Aarohi 3">
+                </div>
             </div>
-            <!-- Photo 4 (Rotates Right) -->
-            <div class="photo-card" style="--rotation: 5deg;">
-                <img src="photo4.jpg" alt="Aarohi Memory 4">
+            <div class="gallery-row right-row">
+                <div class="photo-card" style="--rotation: 8deg;" data-id="4">
+                    <img src="photo4.jpg" alt="Aarohi 4">
+                </div>
             </div>
-            <!-- Photo 5 (Rotates Left) -->
-            <div class="photo-card" style="--rotation: -4deg;">
-                <img src="photo5.jpg" alt="Aarohi Memory 5">
+            <div class="gallery-row left-row">
+                <div class="photo-card" style="--rotation: -6deg;" data-id="5">
+                    <img src="photo5.jpg" alt="Aarohi 5">
+                </div>
             </div>
-            <!-- Photo 6 (Rotates Right) -->
-            <div class="photo-card" style="--rotation: 3deg;">
-                <img src="photo6.jpg" alt="Aarohi Memory 6">
+            <div class="gallery-row right-row">
+                <div class="photo-card" style="--rotation: 5deg;" data-id="6">
+                    <img src="photo6.jpg" alt="Aarohi 6">
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Birthday Letter Section -->
     <div class="letter-section">
         <div class="envelope" id="envelope" onclick="openLetter()">
             <div class="envelope-title" id="envelope-prompt">Click to open your letter 💌</div>
@@ -405,115 +447,76 @@
         <p>Made with ✨ for your special day</p>
     </footer>
 
-    <!-- JavaScript Handling Interactivity & Scroll Animations -->
     <script>
         let blownCount = 0;
         const totalCandles = 4;
 
-        // 1. Initial Confetti Blast on Launch
         window.addEventListener('DOMContentLoaded', () => {
-            durationBlast(2);
+            durationBlast(1.5);
             setupScrollAnimations();
         });
 
         function durationBlast(seconds) {
             var duration = seconds * 1000;
             var end = Date.now() + duration;
-
             (function frame() {
-                confetti({
-                    particleCount: 2,
-                    angle: 60,
-                    spread: 55,
-                    origin: { x: 0 },
-                    colors: ['#ffb7b2', '#ff8b94', '#ffffff']
-                });
-                confetti({
-                    particleCount: 2,
-                    angle: 120,
-                    spread: 55,
-                    origin: { x: 1 },
-                    colors: ['#ffb7b2', '#ff8b94', '#ffffff']
-                });
-
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
+                confetti({ particleCount: 2, angle: 60, spread: 55, origin: { x: 0 }, colors: ['#ffb7b2', '#ff8b94', '#fff'] });
+                confetti({ particleCount: 2, angle: 120, spread: 55, origin: { x: 1 }, colors: ['#ffb7b2', '#ff8b94', '#fff'] });
+                if (Date.now() < end) requestAnimationFrame(frame);
             }());
         }
 
-        // 2. Multi-Candle Blowing Feature
         function blowCandle(candleElement, index) {
             const flame = candleElement.querySelector('.flame');
-            
             if (flame && flame.style.opacity !== '0') {
                 flame.style.opacity = '0';
                 flame.style.transform = 'scale(0)';
                 blownCount++;
-                
-                // Small celebration pop for each individual candle
-                confetti({
-                    particleCount: 30,
-                    spread: 40,
-                    origin: { y: 0.5 },
-                    colors: ['#ffb7b2', '#e8c547']
-                });
+                confetti({ particleCount: 30, spread: 40, origin: { y: 0.5 }, colors: ['#ffb7b2', '#e8c547'] });
 
-                // When all 4 candles are successfully out
                 if (blownCount === totalCandles) {
-                    document.getElementById('cake-status').innerText = "All wishes are locked in perfectly! ✨";
+                    document.getElementById('cake-status').innerText = "All wishes locked in! Your memory lane is open ✨";
+                    
+                    // 1. Unlocks scroll by removing the CSS lock class from body
+                    document.body.classList.remove('scroll-locked');
+                    
+                    // 2. Fades in the "Scroll down" visual indicator smoothly
+                    document.getElementById('scroll-prompt').classList.add('reveal-prompt');
+                    
+                    // 3. Huge celebration explosion blast
                     setTimeout(() => {
-                        confetti({
-                            particleCount: 150,
-                            spread: 85,
-                            origin: { y: 0.55 },
-                            colors: ['#ffb7b2', '#ff8b94', '#e8c547']
-                        });
+                        confetti({ particleCount: 180, spread: 95, origin: { y: 0.55 }, colors: ['#ffb7b2', '#ff8b94', '#e8c547'] });
                     }, 200);
                 }
             }
         }
 
-        // 3. Scroll Trigger to Slide and Rotate Polaroid Frames Dynamically
         function setupScrollAnimations() {
             const cards = document.querySelectorAll('.photo-card');
-            
             const observerOptions = {
                 root: null,
-                threshold: 0.15, // Trigger when 15% of the card is visible
-                rootMargin: "0px 0px -50px 0px"
+                threshold: 0.2,
+                rootMargin: "0px 0px -40px 0px"
             };
 
-            const observer = new IntersectionObserver((entries, observer) => {
+            const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('reveal');
-                        observer.unobserve(entry.target); // Keep visible once animated in
                     }
                 });
             }, observerOptions);
 
-            cards.forEach(card => {
-                observer.observe(card);
-            });
+            cards.forEach(card => observer.observe(card));
         }
 
-        // 4. Open Letter Container Function
         function openLetter() {
             const envelope = document.getElementById('envelope');
             const prompt = document.getElementById('envelope-prompt');
-            
             if (!envelope.classList.contains('open')) {
                 envelope.classList.add('open');
                 prompt.innerText = "A Little Note For You ✨";
-                
-                confetti({
-                    particleCount: 60,
-                    angle: 90,
-                    spread: 70,
-                    origin: { y: 0.75 },
-                    colors: ['#ffb7b2', '#ff8b94', '#fff']
-                });
+                confetti({ particleCount: 60, angle: 90, spread: 70, origin: { y: 0.75 }, colors: ['#ffb7b2', '#ff8b94', '#fff'] });
             }
         }
     </script>
