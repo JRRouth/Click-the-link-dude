@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Aarohi! ✨</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght=600;700&family=Poppins:wght=300;400;500;600&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <style>
@@ -191,12 +191,12 @@
             padding: 0 10px;
         }
 
-        /* Continuous SVG Wavy Line with bottom directional path arrow */
+        /* Continuous SVG Wavy Line container - shifted 2px left */
         .timeline-svg-container {
             position: absolute;
             top: 0;
             left: 50%;
-            transform: translateX(-50%);
+            transform: translateX(calc(-50% - 2px));
             width: 40px;
             height: 100%;
             z-index: 1;
@@ -228,10 +228,9 @@
             display: flex;
             flex-direction: column;
             gap: 150px; 
-            padding: 40px 0 60px 0; /* Tailored spacing to perfectly balance final arrow tip */
+            padding: 40px 0 60px 0;
         }
 
-        /* Strict boundary rule prevents side elements from sliding viewport out of center */
         .gallery-row {
             display: flex;
             width: 100%;
@@ -245,8 +244,8 @@
         .photo-card {
             background: var(--polaroid-bg) !important;
             padding: 12px 12px 42px 12px; 
-            /* Corrected natural shadow placement directly centered below rotated frame */
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+            /* Classic starting shadow dropping down and to the right */
+            box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.6);
             border-radius: 4px;
             position: relative;
             width: 165px; 
@@ -297,7 +296,7 @@
 
         .photo-card:hover {
             transform: scale(1.06) rotate(0deg) !important;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+            box-shadow: 15px 15px 25px rgba(0,0,0,0.7);
             z-index: 10;
         }
 
