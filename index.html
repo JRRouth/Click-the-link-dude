@@ -250,11 +250,27 @@
             border: 1px solid rgba(255,255,255,0.05);
             opacity: 0;
             
-            /* ALL SHADOW FILTERS REMOVED COMPLETELY */
-            filter: none !important;
-            
             /* Original consistent 1.5s slide-in transition */
             transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.5s ease;
+        }
+
+        /* DYNAMIC SHADOW OBJECT (Perfectly locked to parent rotation and track) */
+        .photo-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: transparent;
+            border-radius: 8px;
+            z-index: -1;
+            
+            /* Pushes the shadow downwards slightly relative to the card's native frame */
+            box-shadow: 0px 14px 20px rgba(0, 0, 0, 0.65);
+            
+            /* Ensure smooth reaction when the shadow object expands on hover */
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
         }
 
         /* Secure Starting Positions close to viewport borders */
@@ -294,10 +310,16 @@
         .photo-card[data-id="9"]::after { content: '🌟'; }
         .photo-card[data-id="10"]::after { content: '🎂'; }
 
-        /* Clean scale expansion on active interaction with no shadow clutter */
+        /* Straightens up and creates a deeper separation look on hover */
         .photo-card:hover, .photo-card:active {
             transform: scale(1.06) translateY(-8px) rotate(0deg) !important;
             z-index: 10;
+        }
+
+        /* Modify the tracking shadow object instantly on card hover */
+        .photo-card:hover::before, .photo-card:active::before {
+            box-shadow: 0px 24px 30px rgba(0, 0, 0, 0.55);
+            transform: scale(0.96) translateY(4px); /* Simulates natural physical elevation away from its backdrop */
         }
 
         .photo-card img {
