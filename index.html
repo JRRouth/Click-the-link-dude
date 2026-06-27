@@ -191,33 +191,53 @@
             padding: 0 10px;
         }
 
-        .timeline-svg-container {
+        /* Centered CSS dashed timeline that scales perfectly matching content */
+        .timeline-wrapper::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 40px;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .timeline-line {
-            fill: none;
-            stroke: var(--primary-pink);
-            stroke-width: 3;
-            stroke-linecap: round;
-            stroke-dasharray: 6 6;
+            width: 0px;
+            height: calc(100% + 25px); /* Safely links into the letter section margin */
+            border-left: 3px dashed var(--primary-pink);
             opacity: 0.7;
+            z-index: 1;
         }
 
-        .timeline-arrow-head {
-            fill: none;
-            stroke: var(--primary-pink);
-            stroke-width: 3;
-            stroke-linecap: round;
-            stroke-linejoin: round;
+        /* Perfectly stable, crisp CSS arrowhead pointing beautifully down */
+        .timeline-end-arrow {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 15px;
+            z-index: 2;
+        }
+
+        .timeline-end-arrow::before,
+        .timeline-end-arrow::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 3px;
+            height: 14px;
+            background-color: var(--primary-pink);
             opacity: 0.8;
+            border-radius: 2px;
+        }
+
+        .timeline-end-arrow::before {
+            left: 4px;
+            transform: rotate(-45deg);
+            transform-origin: bottom left;
+        }
+
+        .timeline-end-arrow::after {
+            right: 4px;
+            transform: rotate(45deg);
+            transform-origin: bottom right;
         }
 
         /* --- Side-Pop Polaroid Gallery Content --- */
@@ -321,7 +341,7 @@
 
         /* --- Birthday Letter Section --- */
         .letter-section {
-            margin: 40px 20px 60px;
+            margin: 60px 20px 60px;
             display: flex;
             justify-content: center;
             position: relative;
@@ -438,10 +458,7 @@
     </div>
 
     <div class="timeline-wrapper">
-        <svg class="timeline-svg-container" viewBox="0 0 40 4300" preserveAspectRatio="none">
-            <path class="timeline-line" d="M20,0 Q10,100 20,200 T20,400 T20,600 T20,800 T20,1000 T20,1200 T20,1400 T20,1600 T20,1800 T20,2000 T20,2200 T20,2400 T20,2600 T20,2800 T20,3000 T20,3200 T20,3400 T20,3600 T20,3800 T20,4000 T20,4200 T20,4260" />
-            <path class="timeline-arrow-head" d="M10,4245 L20,4260 L30,4245" />
-        </svg>
+        <div class="timeline-end-arrow"></div>
 
         <div class="gallery-container">
             <div class="gallery-row left-row">
