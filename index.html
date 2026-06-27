@@ -191,12 +191,14 @@
             padding: 0 10px;
         }
 
-        /* Continuous SVG Wavy Line container - shifted 2px left */
+        /* Perfectly pixel-centered timeline container */
         .timeline-svg-container {
             position: absolute;
             top: 0;
-            left: 50%;
-            transform: translateX(calc(-50% - 2px));
+            left: 0;
+            right: 0;
+            margin-left: auto;
+            margin-right: auto;
             width: 40px;
             height: 100%;
             z-index: 1;
@@ -241,36 +243,40 @@
         .gallery-row.left-row { justify-content: flex-start; padding-left: 20px; }
         .gallery-row.right-row { justify-content: flex-end; padding-right: 20px; }
 
-        .photo-card {
-            background: var(--polaroid-bg) !important;
-            padding: 12px 12px 42px 12px; 
-            /* Classic starting shadow dropping down and to the right */
-            box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.6);
-            border-radius: 4px;
-            position: relative;
-            width: 165px; 
+        /* Outer wrapping container controls the animation reveal state */
+        .photo-card-wrapper {
+            width: 165px;
             max-width: 46%;
-            border: 1px solid rgba(255,255,255,0.05);
+            opacity: 0;
             transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.5s ease;
         }
 
-        /* Secure Starting Positions close to viewport borders */
-        .left-row .photo-card {
-            opacity: 0;
+        .left-row .photo-card-wrapper {
             transform: translateX(-40px) rotate(-20deg);
         }
 
-        .right-row .photo-card {
-            opacity: 0;
+        .right-row .photo-card-wrapper {
             transform: translateX(40px) rotate(20deg);
         }
 
-        /* Smooth Target Lock with Staggered Delays */
-        .left-row .photo-card.reveal,
-        .right-row .photo-card.reveal {
+        /* Target active properties lock into your customized design rotations precisely */
+        .left-row .photo-card-wrapper.reveal,
+        .right-row .photo-card-wrapper.reveal {
             opacity: 1;
             transform: translateX(0) rotate(var(--rotation));
             transition-delay: 0.15s;
+        }
+
+        .photo-card {
+            background: var(--polaroid-bg) !important;
+            padding: 12px 12px 42px 12px; 
+            /* The shadow is linked directly inside the frame context so it naturally follows rotations */
+            box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.6);
+            border-radius: 4px;
+            position: relative;
+            width: 100%;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
         /* Pure Emoji Captions */
@@ -283,19 +289,19 @@
             text-align: center;
         }
 
-        .photo-card[data-id="1"]::after { content: '✨'; }
-        .photo-card[data-id="2"]::after { content: '🌸'; }
-        .photo-card[data-id="3"]::after { content: '💖'; }
-        .photo-card[data-id="4"]::after { content: '🎈'; }
-        .photo-card[data-id="5"]::after { content: '💫'; }
-        .photo-card[data-id="6"]::after { content: '🌷'; }
-        .photo-card[data-id="7"]::after { content: '🔮'; }
-        .photo-card[data-id="8"]::after { content: '🎀'; }
-        .photo-card[data-id="9"]::after { content: '🌟'; }
-        .photo-card[data-id="10"]::after { content: '🎂'; }
+        .photo-card-wrapper[data-id="1"] .photo-card::after { content: '✨'; }
+        .photo-card-wrapper[data-id="2"] .photo-card::after { content: '🌸'; }
+        .photo-card-wrapper[data-id="3"] .photo-card::after { content: '💖'; }
+        .photo-card-wrapper[data-id="4"] .photo-card::after { content: '🎈'; }
+        .photo-card-wrapper[data-id="5"] .photo-card::after { content: '💫'; }
+        .photo-card-wrapper[data-id="6"] .photo-card::after { content: '🌷'; }
+        .photo-card-wrapper[data-id="7"] .photo-card::after { content: '🔮'; }
+        .photo-card-wrapper[data-id="8"] .photo-card::after { content: '🎀'; }
+        .photo-card-wrapper[data-id="9"] .photo-card::after { content: '🌟'; }
+        .photo-card-wrapper[data-id="10"] .photo-card::after { content: '🎂'; }
 
-        .photo-card:hover {
-            transform: scale(1.06) rotate(0deg) !important;
+        .photo-card-wrapper:hover .photo-card {
+            transform: scale(1.06);
             box-shadow: 15px 15px 25px rgba(0,0,0,0.7);
             z-index: 10;
         }
@@ -433,53 +439,73 @@
 
         <div class="gallery-container">
             <div class="gallery-row left-row">
-                <div class="photo-card" style="--rotation: -7deg;" data-id="1">
-                    <img src="photo1.jpg" alt="Aarohi 1">
+                <div class="photo-card-wrapper" style="--rotation: -7deg;" data-id="1">
+                    <div class="photo-card">
+                        <img src="photo1.jpg" alt="Aarohi 1">
+                    </div>
                 </div>
             </div>
             <div class="gallery-row right-row">
-                <div class="photo-card" style="--rotation: 6deg;" data-id="2">
-                    <img src="photo2.jpg" alt="Aarohi 2">
+                <div class="photo-card-wrapper" style="--rotation: 6deg;" data-id="2">
+                    <div class="photo-card">
+                        <img src="photo2.jpg" alt="Aarohi 2">
+                    </div>
                 </div>
             </div>
             <div class="gallery-row left-row">
-                <div class="photo-card" style="--rotation: -5deg;" data-id="3">
-                    <img src="photo3.jpg" alt="Aarohi 3">
+                <div class="photo-card-wrapper" style="--rotation: -5deg;" data-id="3">
+                    <div class="photo-card">
+                        <img src="photo3.jpg" alt="Aarohi 3">
+                    </div>
                 </div>
             </div>
             <div class="gallery-row right-row">
-                <div class="photo-card" style="--rotation: 8deg;" data-id="4">
-                    <img src="photo4.jpg" alt="Aarohi 4">
+                <div class="photo-card-wrapper" style="--rotation: 8deg;" data-id="4">
+                    <div class="photo-card">
+                        <img src="photo4.jpg" alt="Aarohi 4">
+                    </div>
                 </div>
             </div>
             <div class="gallery-row left-row">
-                <div class="photo-card" style="--rotation: -6deg;" data-id="5">
-                    <img src="photo5.jpg" alt="Aarohi 5">
+                <div class="photo-card-wrapper" style="--rotation: -6deg;" data-id="5">
+                    <div class="photo-card">
+                        <img src="photo5.jpg" alt="Aarohi 5">
+                    </div>
                 </div>
             </div>
             <div class="gallery-row right-row">
-                <div class="photo-card" style="--rotation: 5deg;" data-id="6">
-                    <img src="photo6.jpg" alt="Aarohi 6">
+                <div class="photo-card-wrapper" style="--rotation: 5deg;" data-id="6">
+                    <div class="photo-card">
+                        <img src="photo6.jpg" alt="Aarohi 6">
+                    </div>
                 </div>
             </div>
             <div class="gallery-row left-row">
-                <div class="photo-card" style="--rotation: -4deg;" data-id="7">
-                    <img src="photo7.jpg" alt="Aarohi 7">
+                <div class="photo-card-wrapper" style="--rotation: -4deg;" data-id="7">
+                    <div class="photo-card">
+                        <img src="photo7.jpg" alt="Aarohi 7">
+                    </div>
                 </div>
             </div>
             <div class="gallery-row right-row">
-                <div class="photo-card" style="--rotation: 7deg;" data-id="8">
-                    <img src="photo8.jpg" alt="Aarohi 8">
+                <div class="photo-card-wrapper" style="--rotation: 7deg;" data-id="8">
+                    <div class="photo-card">
+                        <img src="photo8.jpg" alt="Aarohi 8">
+                    </div>
                 </div>
             </div>
             <div class="gallery-row left-row">
-                <div class="photo-card" style="--rotation: -5deg;" data-id="9">
-                    <img src="photo9.jpg" alt="Aarohi 9">
+                <div class="photo-card-wrapper" style="--rotation: -5deg;" data-id="9">
+                    <div class="photo-card">
+                        <img src="photo9.jpg" alt="Aarohi 9">
+                    </div>
                 </div>
             </div>
             <div class="gallery-row right-row">
-                <div class="photo-card" style="--rotation: 6deg;" data-id="10">
-                    <img src="photo10.jpg" alt="Aarohi 10">
+                <div class="photo-card-wrapper" style="--rotation: 6deg;" data-id="10">
+                    <div class="photo-card">
+                        <img src="photo10.jpg" alt="Aarohi 10">
+                    </div>
                 </div>
             </div>
         </div>
@@ -542,7 +568,7 @@
         }
 
         function setupScrollAnimations() {
-            const cards = document.querySelectorAll('.photo-card');
+            const wrappers = document.querySelectorAll('.photo-card-wrapper');
             const observerOptions = {
                 root: null,
                 threshold: 0.02,
@@ -557,7 +583,7 @@
                 });
             }, observerOptions);
 
-            cards.forEach(card => observer.observe(card));
+            wrappers.forEach(wrapper => observer.observe(wrapper));
         }
 
         function openLetter() {
