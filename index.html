@@ -240,37 +240,29 @@
         .gallery-row.left-row { justify-content: flex-start; padding-left: 20px; }
         .gallery-row.right-row { justify-content: flex-end; padding-right: 20px; }
 
+        /* The moving layout wrapper handling the dynamic animations seamlessly */
         .photo-card {
-            background: var(--polaroid-bg) !important;
-            padding: 12px 12px 42px 12px; 
-            border-radius: 8px; 
             position: relative;
             width: 165px; 
             max-width: 46%;
-            border: 1px solid rgba(255,255,255,0.05);
             opacity: 0;
             
-            /* Original consistent 1.5s slide-in transition */
-            transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.5s ease;
+            /* Clean hardware accelerated shadow filter that strictly follows container geometries */
+            filter: drop-shadow(0px 8px 16px rgba(0,0,0,0.55));
+            
+            /* Unified transition engine ensures shadow and card move at the exact same millisecond */
+            transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.5s ease, filter 0.4s ease;
         }
 
-        /* DYNAMIC SHADOW OBJECT (Perfectly locked to parent rotation and track) */
-        .photo-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
+        /* Inner card structural housing frame */
+        .card-inner {
+            background: var(--polaroid-bg) !important;
+            padding: 12px 12px 42px 12px; 
+            border-radius: 8px;
             width: 100%;
             height: 100%;
-            background: transparent;
-            border-radius: 8px;
-            z-index: -1;
-            
-            /* Pushes the shadow downwards slightly relative to the card's native frame */
-            box-shadow: 0px 14px 20px rgba(0, 0, 0, 0.65);
-            
-            /* Ensure smooth reaction when the shadow object expands on hover */
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            border: 1px solid rgba(255,255,255,0.05);
+            position: relative;
         }
 
         /* Secure Starting Positions close to viewport borders */
@@ -289,8 +281,8 @@
             transform: translateX(0) rotate(var(--rotation));
         }
 
-        /* Pure Emoji Captions */
-        .photo-card::after {
+        /* Pure Emoji Captions anchored safely inside structural layer */
+        .card-inner::after {
             position: absolute;
             bottom: 8px;
             left: 0;
@@ -299,27 +291,22 @@
             text-align: center;
         }
 
-        .photo-card[data-id="1"]::after { content: '✨'; }
-        .photo-card[data-id="2"]::after { content: '🌸'; }
-        .photo-card[data-id="3"]::after { content: '💖'; }
-        .photo-card[data-id="4"]::after { content: '🎈'; }
-        .photo-card[data-id="5"]::after { content: '💫'; }
-        .photo-card[data-id="6"]::after { content: '🌷'; }
-        .photo-card[data-id="7"]::after { content: '🔮'; }
-        .photo-card[data-id="8"]::after { content: '🎀'; }
-        .photo-card[data-id="9"]::after { content: '🌟'; }
-        .photo-card[data-id="10"]::after { content: '🎂'; }
+        .photo-card[data-id="1"] .card-inner::after { content: '✨'; }
+        .photo-card[data-id="2"] .card-inner::after { content: '🌸'; }
+        .photo-card[data-id="3"] .card-inner::after { content: '💖'; }
+        .photo-card[data-id="4"] .card-inner::after { content: '🎈'; }
+        .photo-card[data-id="5"] .card-inner::after { content: '💫'; }
+        .photo-card[data-id="6"] .card-inner::after { content: '🌷'; }
+        .photo-card[data-id="7"] .card-inner::after { content: '🔮'; }
+        .photo-card[data-id="8"] .card-inner::after { content: '🎀'; }
+        .photo-card[data-id="9"] .card-inner::after { content: '🌟'; }
+        .photo-card[data-id="10"] .card-inner::after { content: '🎂'; }
 
-        /* Straightens up and creates a deeper separation look on hover */
+        /* Straightens up and naturally drops shadow dynamically away during active states */
         .photo-card:hover, .photo-card:active {
             transform: scale(1.06) translateY(-8px) rotate(0deg) !important;
+            filter: drop-shadow(0px 18px 24px rgba(0,0,0,0.45));
             z-index: 10;
-        }
-
-        /* Modify the tracking shadow object instantly on card hover */
-        .photo-card:hover::before, .photo-card:active::before {
-            box-shadow: 0px 24px 30px rgba(0, 0, 0, 0.55);
-            transform: scale(0.96) translateY(4px); /* Simulates natural physical elevation away from its backdrop */
         }
 
         .photo-card img {
@@ -456,52 +443,72 @@
         <div class="gallery-container">
             <div class="gallery-row left-row">
                 <div class="photo-card" style="--rotation: -7deg;" data-id="1">
-                    <img src="photo1.jpg" alt="Aarohi 1">
+                    <div class="card-inner">
+                        <img src="photo1.jpg" alt="Aarohi 1">
+                    </div>
                 </div>
             </div>
             <div class="gallery-row right-row">
                 <div class="photo-card" style="--rotation: 6deg;" data-id="2">
-                    <img src="photo2.jpg" alt="Aarohi 2">
+                    <div class="card-inner">
+                        <img src="photo2.jpg" alt="Aarohi 2">
+                    </div>
                 </div>
             </div>
             <div class="gallery-row left-row">
                 <div class="photo-card" style="--rotation: -5deg;" data-id="3">
-                    <img src="photo3.jpg" alt="Aarohi 3">
+                    <div class="card-inner">
+                        <img src="photo3.jpg" alt="Aarohi 3">
+                    </div>
                 </div>
             </div>
             <div class="gallery-row right-row">
                 <div class="photo-card" style="--rotation: 8deg;" data-id="4">
-                    <img src="photo4.jpg" alt="Aarohi 4">
+                    <div class="card-inner">
+                        <img src="photo4.jpg" alt="Aarohi 4">
+                    </div>
                 </div>
             </div>
             <div class="gallery-row left-row">
                 <div class="photo-card" style="--rotation: -6deg;" data-id="5">
-                    <img src="photo5.jpg" alt="Aarohi 5">
+                    <div class="card-inner">
+                        <img src="photo5.jpg" alt="Aarohi 5">
+                    </div>
                 </div>
             </div>
             <div class="gallery-row right-row">
                 <div class="photo-card" style="--rotation: 5deg;" data-id="6">
-                    <img src="photo6.jpg" alt="Aarohi 6">
+                    <div class="card-inner">
+                        <img src="photo6.jpg" alt="Aarohi 6">
+                    </div>
                 </div>
             </div>
             <div class="gallery-row left-row">
                 <div class="photo-card" style="--rotation: -4deg;" data-id="7">
-                    <img src="photo7.jpg" alt="Aarohi 7">
+                    <div class="card-inner">
+                        <img src="photo7.jpg" alt="Aarohi 7">
+                    </div>
                 </div>
             </div>
             <div class="gallery-row right-row">
                 <div class="photo-card" style="--rotation: 7deg;" data-id="8">
-                    <img src="photo8.jpg" alt="Aarohi 8">
+                    <div class="card-inner">
+                        <img src="photo8.jpg" alt="Aarohi 8">
+                    </div>
                 </div>
             </div>
             <div class="gallery-row left-row">
                 <div class="photo-card" style="--rotation: -5deg;" data-id="9">
-                    <img src="photo9.jpg" alt="Aarohi 9">
+                    <div class="card-inner">
+                        <img src="photo9.jpg" alt="Aarohi 9">
+                    </div>
                 </div>
             </div>
             <div class="gallery-row right-row">
                 <div class="photo-card" style="--rotation: 6deg;" data-id="10">
-                    <img src="photo10.jpg" alt="Aarohi 10">
+                    <div class="card-inner">
+                        <img src="photo10.jpg" alt="Aarohi 10">
+                    </div>
                 </div>
             </div>
         </div>
