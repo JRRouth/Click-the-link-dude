@@ -186,17 +186,18 @@
         /* --- Continuous Interactive Track Container --- */
         .timeline-wrapper {
             position: relative;
-            width: 100%;
-            max-width: 100vw;
+            max-width: 700px;
             margin: 0 auto;
+            padding: 0 10px;
         }
 
-        /* Absolute true center alignment covering the full view width */
+        /* Reverted back to the original layout structure */
         .timeline-svg-container {
             position: absolute;
             top: 0;
-            left: 0;
-            width: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 40px;
             height: 100%;
             z-index: 1;
             pointer-events: none;
@@ -234,28 +235,27 @@
             display: flex;
             width: 100%;
             overflow: hidden; 
-            padding: 15px 0;
+            padding: 10px 0;
         }
 
         .gallery-row.left-row { justify-content: flex-start; padding-left: 20px; }
         .gallery-row.right-row { justify-content: flex-end; padding-right: 20px; }
 
-        /* Combined Photo Card structure maps rotation and shadow perfectly together */
         .photo-card {
             background: var(--polaroid-bg) !important;
             padding: 12px 12px 42px 12px; 
-            box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.65);
+            /* Drop shadow filter rotates completely with the box angle */
+            filter: drop-shadow(8px 10px 12px rgba(0, 0, 0, 0.65));
             border-radius: 4px;
             position: relative;
             width: 165px; 
             max-width: 46%;
             border: 1px solid rgba(255,255,255,0.05);
             opacity: 0;
-            /* Combines translation, rotation, and scales natively inside one transform string */
-            transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.5s ease, box-shadow 0.3s ease;
+            transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.5s ease, filter 0.3s ease;
         }
 
-        /* Starting states */
+        /* Secure Starting Positions close to viewport borders */
         .left-row .photo-card {
             transform: translateX(-40px) rotate(-20deg);
         }
@@ -264,12 +264,8 @@
             transform: translateX(40px) rotate(20deg);
         }
 
-        /* Unified active target layout */
-        .left-row .photo-card.reveal {
-            opacity: 1;
-            transform: translateX(0) rotate(var(--rotation));
-        }
-
+        /* Smooth Target Lock with dynamic angles */
+        .left-row .photo-card.reveal,
         .right-row .photo-card.reveal {
             opacity: 1;
             transform: translateX(0) rotate(var(--rotation));
@@ -296,10 +292,9 @@
         .photo-card[data-id="9"]::after { content: '🌟'; }
         .photo-card[data-id="10"]::after { content: '🎂'; }
 
-        /* Complete dynamic hover interaction tracking rotation perfectly */
         .photo-card:hover {
             transform: scale(1.06) rotate(0deg) !important;
-            box-shadow: 15px 15px 28px rgba(0,0,0,0.7);
+            filter: drop-shadow(12px 14px 16px rgba(0, 0, 0, 0.75));
             z-index: 10;
         }
 
@@ -429,9 +424,9 @@
     </div>
 
     <div class="timeline-wrapper">
-        <svg class="timeline-svg-container" viewBox="0 0 100 2600" preserveAspectRatio="none">
-            <path class="timeline-line" d="M50,0 Q48,100 50,200 T50,400 T50,600 T50,800 T50,1000 T50,1200 T50,1400 T50,1600 T20,1800 T50,2000 T50,2200 T50,2400 T50,2560" />
-            <path class="timeline-arrow-head" d="M47,2548 L50,2560 L53,2548" />
+        <svg class="timeline-svg-container" viewBox="0 0 40 2600" preserveAspectRatio="none">
+            <path class="timeline-line" d="M20,0 Q10,100 20,200 T20,400 T20,600 T20,800 T20,1000 T20,1200 T20,1400 T20,1600 T20,1800 T20,2000 T20,2200 T20,2400 T20,2560" />
+            <path class="timeline-arrow-head" d="M10,2545 L20,2560 L30,2545" />
         </svg>
 
         <div class="gallery-container">
