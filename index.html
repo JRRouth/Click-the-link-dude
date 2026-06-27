@@ -250,10 +250,11 @@
             border: 1px solid rgba(255,255,255,0.05);
             opacity: 0;
             
-            /* Enhanced 3D Soft Shadow Separation */
+            /* Organic 3D Floating Shadow Separation */
             filter: drop-shadow(var(--shadow-x) 12px 14px rgba(0, 0, 0, 0.55));
             
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.5s ease, filter 0.4s ease;
+            /* RESTORED original slide-in/fade-in speed to 1.5 seconds */
+            transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.5s ease, filter 0.4s ease;
         }
 
         /* Secure Starting Positions close to viewport borders */
@@ -293,7 +294,7 @@
         .photo-card[data-id="9"]::after { content: '🌟'; }
         .photo-card[data-id="10"]::after { content: '🎂'; }
 
-        /* Straightens up, rises vertically, and pushes shadow deeper down when active */
+        /* Straightens up and floats higher vertically on active interaction */
         .photo-card:hover, .photo-card:active {
             transform: scale(1.06) translateY(-8px) rotate(0deg) !important;
             filter: drop-shadow(0px 24px 20px rgba(0, 0, 0, 0.65));
@@ -438,7 +439,7 @@
                 </div>
             </div>
             <div class="gallery-row right-row">
-                <div class="photo-card" style="--rotation: 6deg; --shadow-x: 8px;" data-id="2">
+                <div class="photo-card" style="--rotation: 6deg; --shadow-x: 6px;" data-id="2">
                     <img src="photo2.jpg" alt="Aarohi 2">
                 </div>
             </div>
@@ -448,7 +449,7 @@
                 </div>
             </div>
             <div class="gallery-row right-row">
-                <div class="photo-card" style="--rotation: 8deg; --shadow-x: 10px;" data-id="4">
+                <div class="photo-card" style="--rotation: 8deg; --shadow-x: 8px;" data-id="4">
                     <img src="photo4.jpg" alt="Aarohi 4">
                 </div>
             </div>
@@ -458,7 +459,7 @@
                 </div>
             </div>
             <div class="gallery-row right-row">
-                <div class="photo-card" style="--rotation: 5deg; --shadow-x: 6px;" data-id="6">
+                <div class="photo-card" style="--rotation: 5deg; --shadow-x: 5px;" data-id="6">
                     <img src="photo6.jpg" alt="Aarohi 6">
                 </div>
             </div>
@@ -468,7 +469,7 @@
                 </div>
             </div>
             <div class="gallery-row right-row">
-                <div class="photo-card" style="--rotation: 7deg; --shadow-x: 9px;" data-id="8">
+                <div class="photo-card" style="--rotation: 7deg; --shadow-x: 7px;" data-id="8">
                     <img src="photo8.jpg" alt="Aarohi 8">
                 </div>
             </div>
@@ -478,7 +479,7 @@
                 </div>
             </div>
             <div class="gallery-row right-row">
-                <div class="photo-card" style="--rotation: 6deg; --shadow-x: 8px;" data-id="10">
+                <div class="photo-card" style="--rotation: 6deg; --shadow-x: 6px;" data-id="10">
                     <img src="photo10.jpg" alt="Aarohi 10">
                 </div>
             </div>
