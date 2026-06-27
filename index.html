@@ -449,7 +449,7 @@
             <div class="frosting"></div>
         </div>
     </div>
-    <p class="cake-instruction" id="cake-status">Blow out all 4 candles to reveal your special lane! 🎂</p>
+    <p class="cake-instruction" id="cake-status">Blow out all 4 candles to make your wish! 🎂</p>
 
     <div class="scroll-prompt-section" id="scroll-prompt">
         <p class="scroll-text">Scroll Down!</p>
@@ -633,7 +633,7 @@
                 confetti({ particleCount: 30, spread: 40, origin: { y: 0.5 }, colors: ['#ffb7b2', '#e8c547'] });
 
                 if (blownCount === totalCandles) {
-                    document.getElementById('cake-status').innerText = "All wishes locked in! Your memory lane is open ✨";
+                    document.getElementById('cake-status').innerText = "All wishes locked in! ✨";
                     document.body.classList.remove('scroll-locked');
                     document.getElementById('scroll-prompt').classList.add('reveal-prompt');
                     
