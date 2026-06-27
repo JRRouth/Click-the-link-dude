@@ -191,53 +191,46 @@
             padding: 0 10px;
         }
 
-        /* Centered CSS dashed timeline that scales perfectly matching content */
-        .timeline-wrapper::before {
-            content: '';
+        /* Container extended tightly to align directly against the envelope spacing layout */
+        .timeline-svg-container {
             position: absolute;
             top: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 0px;
-            height: calc(100% + 25px); /* Safely links into the letter section margin */
-            border-left: 3px dashed var(--primary-pink);
-            opacity: 0.7;
+            width: 40px;
+            height: calc(100% + 25px); 
             z-index: 1;
+            pointer-events: none;
         }
 
-        /* Perfectly stable, crisp CSS arrowhead pointing beautifully down */
-        .timeline-end-arrow {
+        .timeline-line {
+            fill: none;
+            stroke: var(--primary-pink);
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-dasharray: 6 6;
+            opacity: 0.7;
+        }
+
+        /* Dedicated Arrow Head Container holding structural aspect scaling fixed */
+        .timeline-arrow-container {
             position: absolute;
             bottom: -25px;
             left: 50%;
             transform: translateX(-50%);
-            width: 20px;
-            height: 15px;
+            width: 40px;
+            height: 20px;
             z-index: 2;
+            pointer-events: none;
         }
 
-        .timeline-end-arrow::before,
-        .timeline-end-arrow::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            width: 3px;
-            height: 14px;
-            background-color: var(--primary-pink);
+        .timeline-arrow-head {
+            fill: none;
+            stroke: var(--primary-pink);
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
             opacity: 0.8;
-            border-radius: 2px;
-        }
-
-        .timeline-end-arrow::before {
-            left: 4px;
-            transform: rotate(-45deg);
-            transform-origin: bottom left;
-        }
-
-        .timeline-end-arrow::after {
-            right: 4px;
-            transform: rotate(45deg);
-            transform-origin: bottom right;
         }
 
         /* --- Side-Pop Polaroid Gallery Content --- */
@@ -458,7 +451,13 @@
     </div>
 
     <div class="timeline-wrapper">
-        <div class="timeline-end-arrow"></div>
+        <svg class="timeline-svg-container" viewBox="0 0 40 4300" preserveAspectRatio="none">
+            <path class="timeline-line" d="M20,0 Q10,100 20,200 T20,400 T20,600 T20,800 T20,1000 T20,1200 T20,1400 T20,1600 T20,1800 T20,2000 T20,2200 T20,2400 T20,2600 T20,2800 T20,3000 T20,3200 T20,3400 T20,3600 T20,3800 T20,4000 T20,4200 T20,4300" />
+        </svg>
+
+        <svg class="timeline-arrow-container" viewBox="0 0 40 20">
+            <path class="timeline-arrow-head" d="M10,2 L20,17 L30,2" />
+        </svg>
 
         <div class="gallery-container">
             <div class="gallery-row left-row">
