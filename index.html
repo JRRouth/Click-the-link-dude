@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Aarohi! ✨</title>
+    <!-- Google Fonts for Beautiful Aesthetic Typography -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Canvas Confetti Library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <style>
@@ -180,7 +182,7 @@
             padding: 0 10px;
         }
 
-        /* Continuous SVG Wavy Line */
+        /* Continuous SVG Wavy Line (Adjusted viewBox height for 10 cards) */
         .timeline-svg-container {
             position: absolute;
             top: 0;
@@ -219,7 +221,7 @@
             padding: 40px 0 100px 0;
         }
 
-        /* Strict boundary rule prevents the side elements from sliding viewport out of center */
+        /* Strict boundary rule prevents side elements from sliding viewport out of center */
         .gallery-row {
             display: flex;
             width: 100%;
@@ -238,7 +240,6 @@
             position: relative;
             width: 165px; 
             max-width: 46%;
-            /* Slowed down time to 1.5s and specified custom cubic-bezier for deliberate cinematic entrance */
             transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.5s ease;
         }
 
@@ -258,7 +259,7 @@
         .right-row .photo-card.reveal {
             opacity: 1;
             transform: translateX(0) rotate(var(--rotation));
-            transition-delay: 0.15s; /* Delicate arrival delay */
+            transition-delay: 0.15s;
         }
 
         /* Pure Emoji Captions */
@@ -273,10 +274,14 @@
 
         .photo-card[data-id="1"]::after { content: '✨'; }
         .photo-card[data-id="2"]::after { content: '🌸'; }
-        .photo-card[data-id="3"]::after { content: '✨'; }
+        .photo-card[data-id="3"]::after { content: '💖'; }
         .photo-card[data-id="4"]::after { content: '🎈'; }
         .photo-card[data-id="5"]::after { content: '💫'; }
         .photo-card[data-id="6"]::after { content: '🌷'; }
+        .photo-card[data-id="7"]::after { content: '🔮'; }
+        .photo-card[data-id="8"]::after { content: '🎀'; }
+        .photo-card[data-id="9"]::after { content: '🌟'; }
+        .photo-card[data-id="10"]::after { content: '🎂'; }
 
         .photo-card:hover {
             transform: scale(1.06) rotate(0deg) !important;
@@ -372,11 +377,13 @@
 </head>
 <body class="scroll-locked">
 
+    <!-- Header Section -->
     <header>
         <h1 id="headline">Happy Birthday, Aarohi! ✨</h1>
         <p class="subtitle">Wishing an elegant & lovely day to someone incredibly special</p>
     </header>
 
+    <!-- Interactive Cake Section with 4 Candles -->
     <div class="cake-section">
         <div class="candles-row">
             <div class="candle" onclick="blowCandle(this, 1)">
@@ -398,16 +405,19 @@
     </div>
     <p class="cake-instruction" id="cake-status">Blow out all 4 candles to reveal your special lane! 🎂</p>
 
+    <!-- Big & Beautiful Scroll Down Prompt -->
     <div class="scroll-prompt-section" id="scroll-prompt">
         <p class="scroll-text">Scroll Down!</p>
     </div>
 
+    <!-- Timeline Wrapper -->
     <div class="timeline-wrapper">
-        <svg class="timeline-svg-container" viewBox="0 0 40 1600" preserveAspectRatio="none">
-            <path class="timeline-line" d="M20,0 Q10,100 20,200 T20,400 T20,600 T20,800 T20,1000 T20,1200 T20,1400 T20,1560" />
+        <svg class="timeline-svg-container" viewBox="0 0 40 2600" preserveAspectRatio="none">
+            <path class="timeline-line" d="M20,0 Q10,100 20,200 T20,400 T20,600 T20,800 T20,1000 T20,1200 T20,1400 T20,1600 T20,1800 T20,2000 T20,2200 T20,2400 T20,2560" />
             <path class="timeline-arrow-head" d="M10,1545 L20,1560 L30,1545" />
         </svg>
 
+        <!-- Photo Gallery Container (Expanded to 10) -->
         <div class="gallery-container">
             <div class="gallery-row left-row">
                 <div class="photo-card" style="--rotation: -7deg;" data-id="1">
@@ -439,9 +449,30 @@
                     <img src="photo6.jpg" alt="Aarohi 6">
                 </div>
             </div>
+            <div class="gallery-row left-row">
+                <div class="photo-card" style="--rotation: -4deg;" data-id="7">
+                    <img src="photo7.jpg" alt="Aarohi 7">
+                </div>
+            </div>
+            <div class="gallery-row right-row">
+                <div class="photo-card" style="--rotation: 7deg;" data-id="8">
+                    <img src="photo8.jpg" alt="Aarohi 8">
+                </div>
+            </div>
+            <div class="gallery-row left-row">
+                <div class="photo-card" style="--rotation: -5deg;" data-id="9">
+                    <img src="photo9.jpg" alt="Aarohi 9">
+                </div>
+            </div>
+            <div class="gallery-row right-row">
+                <div class="photo-card" style="--rotation: 6deg;" data-id="10">
+                    <img src="photo10.jpg" alt="Aarohi 10">
+                </div>
+            </div>
         </div>
     </div>
 
+    <!-- Birthday Letter Section -->
     <div class="letter-section">
         <div class="envelope" id="envelope" onclick="openLetter()">
             <div class="envelope-title" id="envelope-prompt">Click to open your letter 💌</div>
@@ -502,7 +533,7 @@
             const cards = document.querySelectorAll('.photo-card');
             const observerOptions = {
                 root: null,
-                threshold: 0.02, /* Instant sensory tripwire detection */
+                threshold: 0.02,
                 rootMargin: "0px 0px -60px 0px"
             };
 
