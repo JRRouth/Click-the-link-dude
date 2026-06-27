@@ -4,9 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Aarohi! ✨</title>
-    <!-- Google Fonts for Beautiful Aesthetic Typography -->
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- Canvas Confetti Library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     
     <style>
@@ -174,7 +172,7 @@
             letter-spacing: 1px;
         }
 
-        /* Modern dynamic scrolling directional arrow pointer */
+        /* Top bouncy indicator arrow */
         .scroll-arrow {
             width: 20px;
             height: 20px;
@@ -193,7 +191,7 @@
             padding: 0 10px;
         }
 
-        /* Continuous SVG Wavy Line without layout breaking arrow tips */
+        /* Continuous SVG Wavy Line with bottom directional path arrow */
         .timeline-svg-container {
             position: absolute;
             top: 0;
@@ -214,6 +212,15 @@
             opacity: 0.7;
         }
 
+        .timeline-arrow-head {
+            fill: none;
+            stroke: var(--primary-pink);
+            stroke-width: 3;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            opacity: 0.8;
+        }
+
         /* --- Side-Pop Polaroid Gallery Content --- */
         .gallery-container {
             position: relative;
@@ -221,7 +228,7 @@
             display: flex;
             flex-direction: column;
             gap: 150px; 
-            padding: 40px 0 100px 0;
+            padding: 40px 0 60px 0; /* Tailored spacing to perfectly balance final arrow tip */
         }
 
         /* Strict boundary rule prevents side elements from sliding viewport out of center */
@@ -238,7 +245,8 @@
         .photo-card {
             background: var(--polaroid-bg) !important;
             padding: 12px 12px 42px 12px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+            /* Corrected natural shadow placement directly centered below rotated frame */
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
             border-radius: 4px;
             position: relative;
             width: 165px; 
@@ -289,7 +297,7 @@
 
         .photo-card:hover {
             transform: scale(1.06) rotate(0deg) !important;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.6);
             z-index: 10;
         }
 
@@ -387,13 +395,11 @@
 </head>
 <body class="scroll-locked">
 
-    <!-- Header Section -->
     <header>
         <h1 id="headline">Happy Birthday, Aarohi! ✨</h1>
         <p class="subtitle">Wishing an elegant & lovely day to someone incredibly special</p>
     </header>
 
-    <!-- Interactive Cake Section with 4 Candles -->
     <div class="cake-section">
         <div class="candles-row">
             <div class="candle" onclick="blowCandle(this, 1)">
@@ -415,19 +421,17 @@
     </div>
     <p class="cake-instruction" id="cake-status">Blow out all 4 candles to reveal your special lane! 🎂</p>
 
-    <!-- Big & Beautiful Scroll Down Prompt -->
     <div class="scroll-prompt-section" id="scroll-prompt">
         <p class="scroll-text">Scroll Down!</p>
         <div class="scroll-arrow"></div>
     </div>
 
-    <!-- Timeline Wrapper -->
     <div class="timeline-wrapper">
         <svg class="timeline-svg-container" viewBox="0 0 40 2600" preserveAspectRatio="none">
             <path class="timeline-line" d="M20,0 Q10,100 20,200 T20,400 T20,600 T20,800 T20,1000 T20,1200 T20,1400 T20,1600 T20,1800 T20,2000 T20,2200 T20,2400 T20,2560" />
+            <path class="timeline-arrow-head" d="M10,2545 L20,2560 L30,2545" />
         </svg>
 
-        <!-- Photo Gallery Container (Expanded to 10) -->
         <div class="gallery-container">
             <div class="gallery-row left-row">
                 <div class="photo-card" style="--rotation: -7deg;" data-id="1">
@@ -482,7 +486,6 @@
         </div>
     </div>
 
-    <!-- Birthday Letter Section -->
     <div class="letter-section">
         <div class="envelope" id="envelope" onclick="openLetter()">
             <div class="envelope-title" id="envelope-prompt">Click to open your letter 💌</div>
